@@ -7,6 +7,23 @@
     <title>{{$data['title']}}</title>
 </head>
 <body>
-    
+    <h1>{{$data['title']}}</h1>
+    <hr>
+    <table>
+        <thead>
+            @foreach ($data['headers'] as $header)
+                <th>{{$header}}</th>
+            @endforeach
+        </thead>
+        <tbody>
+            @foreach ($data['data'] as $dataTable)
+                <tr>
+
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
+{{-- @dd($data['data'])
+@dd('teste') --}}

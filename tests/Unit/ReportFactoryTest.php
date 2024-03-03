@@ -14,8 +14,17 @@ class ReportFactoryTest extends TestCase
     public function test_report_factory_return_view(): void
     {
         $data = [
-            'model' => 'r1',
-            "title" => "teste"
+            "data" => [
+                ["nome" => "produto 01", "preco" => "100", "precoPromocao" => "99"],
+                ["nome" => "produto 02", "preco" => "100", "precoPromocao" => "99"]
+            ],
+            "format" => "pdf",
+            "headers" => [
+                "Nome", "Preco", "Preço em Promoção"
+            ],
+            "model" => "r1",
+            "title" => "Relatório de produtos",
+            "subtitle" => "produtos em promocao"
         ];
 
         $htmlReport = ReportFactory::getReportView($data);

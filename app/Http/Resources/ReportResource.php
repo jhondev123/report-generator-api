@@ -15,11 +15,12 @@ class ReportResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'title' => $this['title'] ?? null,
-            'headers' => $this['headers'] ?? [],
-            'data' => $this['data'] ?? [],
-            'format' => $this['format'] ?? null,
-            "model" => $this['model'] ?? null,
+            'title' => $this->resource['title'] ?? null,
+            'format' => $this->resource['format'] ?? null,
+            'headers' => $this->resource['headers'] ?? [],
+            'data' => $this->resource['data'] ?? [],
+            'model' => $this->resource['model'] ?? null,
+            'report' => $this->resource['report'] ?? null,
         ];
     }
 }

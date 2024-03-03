@@ -12,15 +12,18 @@ class ReportController extends Controller
     public function teste()
     {
         $data = [
-            "data" => [],
+            "data" => [
+                ["nome" => "produto 01", "preco" => "100","precoPromocao"=>"99"],
+                ["nome" => "produto 02", "preco" => "100","precoPromocao"=>"99"]
+            ],
             "format" => "pdf",
             "headers" => [
-                "nome"
+                "Nome", "Preco","Preço em Promoção"
             ],
             "model" => "r1",
-            "title" => "teste"
+            "title" => "Relatório de produtos",
+            "subtitle"=>"produtos em promocao"
         ];
-
-        dd(View::make('reports.initialReport', ["data" => $data])->render());
+        ReportGenerator::generateForView($data);
     }
 }

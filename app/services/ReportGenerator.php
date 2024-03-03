@@ -12,23 +12,21 @@ class ReportGenerator
 {
     public static function generate(array $data): string|array
     {
-        
-            if (!ValidateFormatReport::validate($data['format'])) {
-                throw new InvalidFormatException();
-            }
-            if (empty($data['headers'])) {
-                throw new MissingReportHeadersException("Necessário enviar cabeçalhos para o header");
-            }
-            $html =  ReportFactory::getReportView($data);
-            $dompdf = new Dompdf();
-            $dompdf->loadHtml($html);
-            $dompdf->setPaper($data['paper'] ?? 'A4', $data['orientation'] ?? 'portrait');
-            $dompdf->render();
-            $pdfOutput = $dompdf->stream();
-            $pdfOutput = $dompdf->output();
-            $base64Pdf = base64_encode($pdfOutput);
-            return $base64Pdf;
-        
+        if (!ValidateFormatReport::validate($data['format'])) {
+            throw new InvalidFormatException();
+        }
+        if (empty($data['headers'])) {
+            throw new MissingReportHeadersException("Necessário enviar cabeçalhos para o header");
+        }
+        $html =  ReportFactory::getReportView($data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper($data['paper'] ?? 'A4', $data['orientation'] ?? 'portrait');
+        $dompdf->render();
+        // $pdfOutput = $dompdf->stream();
+        $pdfOutput = $dompdf->output();
+        $base64Pdf = base64_encode($pdfOutput);
+        return $base64Pdf;
     }
     public static function teste_report($base64Pdf)
     {
@@ -45,5 +43,21 @@ class ReportGenerator
         } else {
             echo "Houve um erro ao salvar o PDF.";
         }
+    }
+
+    public static function generateForView(array $data)
+    {
+        if (!ValidateFormatReport::validate($data['format'])) {
+            throw new InvalidFormatException();
+        }
+        if (empty($data['headers'])) {
+            throw new MissingReportHeadersException("Necessário enviar cabeçalhos para o header");
+        }
+        $html =  ReportFactory::getReportView($data);
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper($data['paper'] ?? 'A4', $data['orientation'] ?? 'portrait');
+        $dompdf->render();
+        $dompdf->stream(); // Alterado para stream() para abrir na tela
     }
 }
